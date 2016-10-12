@@ -1,0 +1,16 @@
+{
+    "name": "bjhansen/laravel-make-view",
+    "description": "Artisan command to create Blade views",
+    "authors": [
+        {
+            "name": "bjhansen",
+            "email": "bjhansen@ualr.edu"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "LaravelMakeView\\": "src/"
+        }
+    }
+}
