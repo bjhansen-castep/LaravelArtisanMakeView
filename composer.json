@@ -1,5 +1,5 @@
 {
-    "name": "bjhansen/laravel-make-view",
+    "name": "bjhansen/laravel-artisan-make-view",
     "description": "Artisan command to create Blade views",
     "authors": [
         {
