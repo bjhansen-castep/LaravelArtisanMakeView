@@ -10,7 +10,7 @@ class MakeView extends Command
      *
      * @var string
      */
-    protected $signature = 'make:view {viewname} {--extends=masterpages.default}';
+    protected $signature = "make:view {viewname} {--extends}";
 
     /**
      * The console command description.
@@ -37,12 +37,16 @@ class MakeView extends Command
     public function handle()
     {
         $viewname = $this->argument('viewname');
-        $extends = $this->option('extends');
+        $extends = env('BASE_VIEW', $this->option('extends'));
+        
+        if($extends == "" || is_null($extends)) {
+            $this->error('You have not configured or supplied a view to extend!\nYou must either configure BASE_VIEW in your .env file or use the \"--extends=base.view\" argument when creating a view!');
+        }
 
         $dir = resource_path('views');
 
         if($viewname == $extends) {
-            $html = "<!DOCTYPE html>\n<html lang='en'>\n\t<head>\n\t\t<meta charset='utf-8'>\n\n\t\t<title>{{ \$title }}</title>\n\t</head>\n\t<body>\n\n\t</body>\n</html>";
+            $html = "<!DOCTYPE html>\n<html lang=\"en\">\n\t<head>\n\t\t<meta charset=\"utf-8\">\n\n\t\t<title>{{ \$title }}</title>\n\t</head>\n\t<body>\n\n\t</body>\n</html>";
 
             if(strpos($viewname, '.') !== false) {
                 $parts = explode(".", $viewname);
@@ -62,18 +66,18 @@ class MakeView extends Command
                 if(!file_exists($dir."/".$viewfile)) {
                     touch($dir."/".$viewfile);
                     file_put_contents($dir."/".$viewfile, $html);
-                    $this->info("\n\n\tView [$viewname] created successfully!\n");
+                    $this->info("View [$viewname] created successfully!");
                 } else {
-                    $this->error("\n\n\tView [$viewname] already exists!\n");
+                    $this->error("View [$viewname] already exists!");
                 }
             } else {
                 $viewfile = $viewname.".blade.php";
                 if(!file_exists($dir."/".$viewfile)) {
                     touch($dir."/".$viewfile);
                     file_put_contents($dir."/".$viewfile, $html);
-                    $this->info("\n\n\tView [$viewname] created successfully!\n");
+                    $this->info("View [$viewname] created successfully!");
                 } else {
-                    $this->error("\n\n\tView [$viewname] already exists!\n");
+                    $this->error("View [$viewname] already exists!");
                 }
             }
         } else {
@@ -95,18 +99,18 @@ class MakeView extends Command
                 if(!file_exists($dir."/".$viewfile)) {
                     touch($dir."/".$viewfile);
                     file_put_contents($dir."/".$viewfile, "@extends('$extends')");
-                    $this->info("\n\n\tView [$viewname] created successfully!\n");
+                    $this->info("View [$viewname] created successfully!");
                 } else {
-                    $this->error("\n\n\tView [$viewname] already exists!\n");
+                    $this->error("View [$viewname] already exists!");
                 }
             } else {
                 $viewfile = $viewname.".blade.php";
                 if(!file_exists($dir."/".$viewfile)) {
                     touch($dir."/".$viewfile);
                     file_put_contents($dir."/".$viewfile, "@extends('$extends')");
-                    $this->info("\n\n\tView [$viewname] created successfully!\n");
+                    $this->info("View [$viewname] created successfully!");
                 } else {
-                    $this->error("\n\n\tView [$viewname] already exists!\n");
+                    $this->error("View [$viewname] already exists!");
                 }
             }
         }
