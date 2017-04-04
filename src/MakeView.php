@@ -40,7 +40,8 @@ class MakeView extends Command
         $extends = env('BASE_VIEW', $this->option('extends'));
         
         if($extends == "" || is_null($extends)) {
-            $this->error('You have not configured or supplied a view to extend!\nYou must either configure BASE_VIEW in your .env file or use the \"--extends=base.view\" argument when creating a view!');
+            $this->error("You have not configured or supplied a view to extend!\nYou must either configure BASE_VIEW in your .env file or use the \"--extends=base.view\" argument when creating a view!");
+            return false;
         }
 
         $dir = resource_path('views');
