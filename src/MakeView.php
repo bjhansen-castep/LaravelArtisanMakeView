@@ -10,7 +10,7 @@ class MakeView extends Command
      *
      * @var string
      */
-    protected $signature = "make:view {viewname} {--extends=} {--bootstrap}";
+    protected $signature = "make:view {viewname} {--extends=} {--bootstrap=}";
 
     /**
      * The console command description.
@@ -48,8 +48,10 @@ class MakeView extends Command
         $dir = resource_path('views');
 
         if($viewname == $extends) {
-            if($bootstrap) {
+            if($bootstrap == "v3") {
                 $html = file_get_contents(__DIR__."/shells/boostrap.txt");
+            } else if($bootstrap == "v4") {
+                $html = file_get_contents(__DIR__."/shells/boostrap4.txt");
             } else {
                 $html = file_get_contents(__DIR__."/shells/raw.txt");
             }
