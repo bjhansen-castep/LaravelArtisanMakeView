@@ -1,5 +1,9 @@
 # LaravelArtisanMakeView
 
+Command line utility to create views in Laravel.
+
+Requires >= Laravel 5.0
+
 Installation
 1. Add <code>"bjhansen/laravel-artisan-make-view": "dev-master"</code> to your composer.json file's <code>require-dev</code> section
 2. Run <code>composer update</code>
