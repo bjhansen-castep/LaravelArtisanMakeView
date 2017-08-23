@@ -10,4 +10,4 @@ Usage
 <code>php artisan make:view view.name --extends=layouts.app --bootstrap</code>
 
 - <code>extends</code> option is optional if you set <code>BASE_VIEW</code> in your project's .env file
-- <code>bootstrap</code> option is optional. Preconfigures the base view with Twitter Bootstrap CSS and JS
+- <code>bootstrap</code> option is optional. Preconfigures the base view with Twitter Bootstrap CSS and JS v3

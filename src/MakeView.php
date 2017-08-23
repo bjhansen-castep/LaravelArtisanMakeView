@@ -49,9 +49,9 @@ class MakeView extends Command
 
         if($viewname == $extends) {
             if($bootstrap) {
-                $html = "<!DOCTYPE html>\n<html lang=\"en\">\n\t<head>\n\t\t<meta charset=\"utf-8\">\n\t\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n\n\t\t<link href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u\" crossorigin=\"anonymous\">\n\n\t\t<title>{{ \$title }}</title>\n\n\t\t<script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js\"></script>\n\t\t<script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js\" integrity=\"sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa\" crossorigin=\"anonymous\"></script>\n\t</head>\n\t<body>\n\n\t</body>\n</html>";
+                $html = file_get_contents(__DIR__."/shells/boostrap.txt");
             } else {
-                $html = "<!DOCTYPE html>\n<html lang=\"en\">\n\t<head>\n\t\t<meta charset=\"utf-8\">\n\n\t\t<title>{{ \$title }}</title>\n\t</head>\n\t<body>\n\n\t</body>\n</html>";
+                $html = file_get_contents(__DIR__."/shells/raw.txt");
             }
 
             if(strpos($viewname, '.') !== false) {
@@ -104,7 +104,11 @@ class MakeView extends Command
 
                 if(!file_exists($dir."/".$viewfile)) {
                     touch($dir."/".$viewfile);
-                    file_put_contents($dir."/".$viewfile, "@extends('$extends')");
+
+                    $content = file_get_contents(__DIR__."/shells/extends.txt");
+                    $content = str_replace("{{BASE_VIEW}}", $extends, $content);
+
+                    file_put_contents($dir."/".$viewfile, $content);
                     $this->info("View [$viewname] created successfully!");
                 } else {
                     $this->error("View [$viewname] already exists!");
@@ -113,7 +117,11 @@ class MakeView extends Command
                 $viewfile = $viewname.".blade.php";
                 if(!file_exists($dir."/".$viewfile)) {
                     touch($dir."/".$viewfile);
-                    file_put_contents($dir."/".$viewfile, "@extends('$extends')");
+
+                    $content = file_get_contents(__DIR__."/shells/extends.txt");
+                    $content = str_replace("{{BASE_VIEW}}", $extends, $content);
+
+                    file_put_contents($dir."/".$viewfile, $content);
                     $this->info("View [$viewname] created successfully!");
                 } else {
                     $this->error("View [$viewname] already exists!");
